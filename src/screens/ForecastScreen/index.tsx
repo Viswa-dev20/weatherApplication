@@ -1,11 +1,12 @@
-import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
-import {RootState} from '../store/store';
+import React from "react";
+import { View, Text, FlatList } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import styles from "./styles";
 
 const ForecastScreen = () => {
-  const {forecast, loading, error} = useSelector(
-    (state: RootState) => state.weather,
+  const { forecast, loading, error } = useSelector(
+    (state: RootState) => state.weather
   );
 
   if (loading) {
@@ -28,7 +29,7 @@ const ForecastScreen = () => {
     <View style={styles.container}>
       <FlatList
         data={forecast.list}
-        keyExtractor={item => item.dt.toString()}
+        keyExtractor={(item) => item.dt.toString()}
         ListHeaderComponent={() => {
           return (
             <Text style={styles.header}>
@@ -36,7 +37,7 @@ const ForecastScreen = () => {
             </Text>
           );
         }}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <View style={styles.forecastItem}>
             <Text style={styles.weatherText}>
               {new Date(item.dt_txt).toLocaleDateString()}
@@ -52,36 +53,5 @@ const ForecastScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#3b2a6c',
-  },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    paddingVertical: 4,
-    color: 'white',
-  },
-  forecastItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  weatherText: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: 'semibold',
-    marginTop: 4,
-  },
-  noDataContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    backgroundColor: '#3b2a6c',
-  },
-});
 
 export default ForecastScreen;
